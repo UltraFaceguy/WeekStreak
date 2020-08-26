@@ -1,0 +1,22 @@
+name: WeekStreak
+version: 1.0.1
+main: land.face.streak.StreakPlugin
+author: Faceguy
+description: Make sum daily progress hasktag everyday bro
+depend:
+  - Facecore
+  - WorldGuard
+  - DiscordSRV
+  - Bullion
+api-version: 1.16
+
+permissions:
+  streak.open:
+    default: true
+
+commands:
+  daily:
+    usage: /<command>
+    aliases: [ferdayz]
+    permission: streak.open
+    description: streanks
