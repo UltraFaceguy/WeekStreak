@@ -18,7 +18,7 @@
  */
 package land.face.streak.menu.icons;
 
-import com.tealcube.minecraft.bukkit.TextUtils;
+import com.tealcube.minecraft.bukkit.facecore.utilities.TextUtils;
 import io.pixeloutlaw.minecraft.spigot.hilt.ItemStackExtensionsKt;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +32,8 @@ import org.bukkit.inventory.ItemStack;
 
 public class KeysIcon extends MenuItem {
 
-  private StreakPlugin plugin;
-  private ItemStack icon;
+  private final StreakPlugin plugin;
+  private final ItemStack icon;
 
   public KeysIcon(StreakPlugin plugin) {
     super("", new ItemStack(Material.CHEST_MINECART));
@@ -45,7 +45,7 @@ public class KeysIcon extends MenuItem {
     lore.add("&areward&7! You can collect");
     lore.add("&7up to &f7 &7prizes a week!");
     ItemStackExtensionsKt.setCustomModelData(icon, 50);
-    ItemStackExtensionsKt.setLore(icon, TextUtils.color(lore));
+    TextUtils.setLore(icon, lore, true);
   }
 
   @Override

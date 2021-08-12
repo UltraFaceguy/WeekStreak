@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import land.face.streak.StreakPlugin;
 import land.face.streak.data.PlayerData.SlotId;
 import land.face.streak.data.Reward;
 import org.bukkit.Bukkit;
@@ -14,26 +13,26 @@ import org.bukkit.inventory.ItemStack;
 
 public class RewardManager {
 
-  private StreakPlugin plugin;
-
-  private Map<String, Reward> rewardSlotMap = new HashMap<>();
-  private Map<SlotId, String> currentRewards = new HashMap<>();
-
-  public RewardManager(StreakPlugin plugin) {
-    this.plugin = plugin;
-  }
+  private final Map<String, Reward> rewardSlotMap = new HashMap<>();
+  private final Map<SlotId, String> currentRewards = new HashMap<>();
 
   public void generateNewRewards() {
+
     List<Reward> uncommon = new ArrayList<>();
     List<Reward> rare = new ArrayList<>();
     List<Reward> epic = new ArrayList<>();
+
     for (Reward reward : rewardSlotMap.values()) {
-      if (reward.getRarity() == Rarity.EPIC) {
-        epic.add(reward);
-      } else if (reward.getRarity() == Rarity.RARE) {
-        rare.add(reward);
-      } else {
-        uncommon.add(reward);
+      switch (reward.getRarity()) {
+        case EPIC:
+          epic.add(reward);
+          continue;
+        case RARE:
+          rare.add(reward);
+          continue;
+        case UNCOMMON:
+        default:
+          uncommon.add(reward);
       }
     }
 

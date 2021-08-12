@@ -11,14 +11,12 @@ public class PlayerData {
 
   private final UUID uuid;
   private int points;
-  private Set<DayOfWeek> loginDays;
-  private Map<SlotId, SlotId> pickedSlots;
+  private final Set<DayOfWeek> loginDays = new HashSet<>();
+  private Map<SlotId, SlotId> pickedSlots = new HashMap<>();
 
   public PlayerData(UUID uuid) {
     this.uuid = uuid;
-    loginDays = new HashSet<>();
     points = 0;
-    pickedSlots = new HashMap<>();
   }
 
   public UUID getUuid() {

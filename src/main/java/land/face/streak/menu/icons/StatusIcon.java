@@ -18,7 +18,7 @@
  */
 package land.face.streak.menu.icons;
 
-import com.tealcube.minecraft.bukkit.TextUtils;
+import com.tealcube.minecraft.bukkit.facecore.utilities.TextUtils;
 import io.pixeloutlaw.minecraft.spigot.hilt.ItemStackExtensionsKt;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class StatusIcon extends MenuItem {
 
-  private ItemStack icon;
+  private final ItemStack icon;
 
   public StatusIcon(StreakPlugin plugin) {
     super("", new ItemStack(Material.PAPER));
@@ -74,7 +74,7 @@ public class StatusIcon extends MenuItem {
     lore.add("&7Rewards refresh every week");
     lore.add("&bFriday &7at &b12:00AM EST&7!");
     lore.add("");
-    ItemStackExtensionsKt.setLore(icon, TextUtils.color(lore));
+    TextUtils.setLore(icon, TextUtils.color(lore));
   }
 
   @Override

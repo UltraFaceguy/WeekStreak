@@ -2,7 +2,6 @@ package land.face.streak.managers;
 
 import com.tealcube.minecraft.bukkit.facecore.utilities.MessageUtils;
 import com.tealcube.minecraft.bukkit.shade.apache.commons.lang3.StringUtils;
-import github.scarsz.discordsrv.DiscordSRV;
 import github.scarsz.discordsrv.dependencies.jda.api.entities.TextChannel;
 import github.scarsz.discordsrv.util.DiscordUtil;
 import io.pixeloutlaw.minecraft.spigot.hilt.ItemStackExtensionsKt;
@@ -11,11 +10,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 import land.face.streak.StreakPlugin;
 import land.face.streak.data.PlayerData;
@@ -148,12 +146,13 @@ public class StreakManager {
   }
 
   private SlotId pickRewardSlot(PlayerData data) {
-    Set<SlotId> outcomes = new HashSet<>(Arrays.asList(SLOTS));
+    List<SlotId> outcomes = new ArrayList<>(Arrays.asList(SLOTS));
     outcomes.removeAll(data.getPickedSlots().values());
     if (outcomes.size() == 0) {
       Bukkit.getLogger().severe("Bad reward data for: " + data.getUuid());
       throw new IllegalStateException("No reward outcomes exist!");
     }
-    return outcomes.iterator().next();
+    Collections.shuffle(outcomes);
+    return outcomes.get(0);
   }
 }

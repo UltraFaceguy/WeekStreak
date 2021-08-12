@@ -18,7 +18,7 @@
  */
 package land.face.streak.menu;
 
-import com.tealcube.minecraft.bukkit.TextUtils;
+import com.tealcube.minecraft.bukkit.facecore.utilities.TextUtils;
 import io.pixeloutlaw.minecraft.spigot.hilt.ItemStackExtensionsKt;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,8 +66,8 @@ public class RewardMenu extends ItemMenu {
     lore.add("&7get your daily reward!");
     ItemStackExtensionsKt.setCustomModelData(claimStack, 50);
     claimStack.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
-    ItemStackExtensionsKt.setLore(claimStack, TextUtils.color(lore));
-    ItemStackExtensionsKt.addItemFlags(claimStack, ItemFlag.HIDE_ENCHANTS);
+    TextUtils.setLore(claimStack, lore, true);
+    claimStack.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 
     noKeyStack = new ItemStack(Material.CHEST_MINECART);
     ItemStackExtensionsKt.setDisplayName(noKeyStack, TextUtils.color("&e&lNo Rewards Left!"));
@@ -76,7 +76,7 @@ public class RewardMenu extends ItemMenu {
     lore3.add("&7back tomorrow to get your");
     lore3.add("&7next reward.");
     ItemStackExtensionsKt.setCustomModelData(noKeyStack, 50);
-    ItemStackExtensionsKt.setLore(noKeyStack, TextUtils.color(lore3));
+    TextUtils.setLore(noKeyStack, lore3, true);
 
     claimedStack = new ItemStack(Material.MINECART);
     ItemStackExtensionsKt.setDisplayName(claimedStack, TextUtils.color("&e&lAlready Opened!"));
@@ -84,7 +84,7 @@ public class RewardMenu extends ItemMenu {
     lore2.add("&7You claimed this reward");
     lore2.add("&7already! Nice!");
     ItemStackExtensionsKt.setCustomModelData(claimedStack, 50);
-    ItemStackExtensionsKt.setLore(claimedStack, TextUtils.color(lore2));
+    TextUtils.setLore(claimedStack, lore2, true);
   }
 
   public static RewardMenu getInstance() {

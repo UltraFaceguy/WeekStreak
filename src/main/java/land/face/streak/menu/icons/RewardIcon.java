@@ -18,6 +18,7 @@
  */
 package land.face.streak.menu.icons;
 
+import com.tealcube.minecraft.bukkit.facecore.utilities.TextUtils;
 import io.pixeloutlaw.minecraft.spigot.hilt.ItemStackExtensionsKt;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,9 +41,9 @@ import org.bukkit.inventory.ItemStack;
 
 public class RewardIcon extends MenuItem {
 
-  private StreakPlugin plugin;
-  private SlotId slotId;
-  private Map<UUID, ItemStack> tempStack = new HashMap<>();
+  private final StreakPlugin plugin;
+  private final SlotId slotId;
+  private final Map<UUID, ItemStack> tempStack = new HashMap<>();
 
   public RewardIcon(StreakPlugin plugin, SlotId slotId) {
     super("", new ItemStack(Material.CHEST_MINECART));
@@ -63,13 +64,11 @@ public class RewardIcon extends MenuItem {
       ItemStack icon = RewardMenu.getClaimedStack().clone();
       List<String> lore = new ArrayList<>();
       lore.add("");
-      lore.add(ChatColor.WHITE + "Reward: " +
-          ItemStackExtensionsKt.getDisplayName(reward.getStack()));
-      lore.add(ChatColor.WHITE + "Reward Rarity: " +
-          colorFromRarity(reward.getRarity()) + reward.getRarity());
+      lore.add(ChatColor.WHITE + "Reward: " + ItemStackExtensionsKt.getDisplayName(reward.getStack()));
+      lore.add(ChatColor.WHITE + "Reward Rarity: " + colorFromRarity(reward.getRarity()) + reward.getRarity());
       lore.add("");
-      lore.addAll(ItemStackExtensionsKt.getLore(icon));
-      ItemStackExtensionsKt.setLore(icon, lore);
+      lore.addAll(TextUtils.getLore(icon));
+      TextUtils.setLore(icon, lore);
       return icon;
     } else if (data.getPoints() > 0) {
       return RewardMenu.getClaimStack();
@@ -100,8 +99,8 @@ public class RewardIcon extends MenuItem {
       lore.add(ChatColor.WHITE + "Reward Rarity: " +
           colorFromRarity(reward.getRarity()) + reward.getRarity());
       lore.add("");
-      lore.addAll(ItemStackExtensionsKt.getLore(rewardIcon));
-      ItemStackExtensionsKt.setLore(rewardIcon, lore);
+      lore.addAll(TextUtils.getLore(rewardIcon));
+      TextUtils.setLore(rewardIcon, lore);
 
       tempStack.put(event.getPlayer().getUniqueId(), rewardIcon);
 
@@ -118,15 +117,11 @@ public class RewardIcon extends MenuItem {
   }
 
   private static ChatColor colorFromRarity(Rarity rarity) {
-    switch (rarity) {
-      case RARE:
-        return ChatColor.DARK_PURPLE;
-      case UNCOMMON:
-        return ChatColor.BLUE;
-      case EPIC:
-        return ChatColor.RED;
-    }
-    return ChatColor.WHITE;
+    return switch (rarity) {
+      case RARE -> ChatColor.DARK_PURPLE;
+      case UNCOMMON -> ChatColor.BLUE;
+      case EPIC -> ChatColor.RED;
+    };
   }
 
 }

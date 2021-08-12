@@ -1,5 +1,6 @@
 package land.face.streak.data;
 
+import com.tealcube.minecraft.bukkit.facecore.utilities.TextUtils;
 import io.pixeloutlaw.minecraft.spigot.hilt.ItemStackExtensionsKt;
 import java.util.List;
 import land.face.streak.managers.RewardManager.Rarity;
@@ -9,7 +10,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class Reward {
 
-  private String id;
+  private final String id;
   private String command;
   private Rarity rarity;
   private final ItemStack stack;
@@ -18,7 +19,7 @@ public class Reward {
     this.id = id;
     stack = new ItemStack(material);
     ItemStackExtensionsKt.setDisplayName(stack, name);
-    ItemStackExtensionsKt.setLore(stack, lore);
+    TextUtils.setLore(stack, lore);
     if (data != 0) {
       ItemStackExtensionsKt.setCustomModelData(stack, data);
     }

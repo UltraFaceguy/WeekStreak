@@ -1,6 +1,7 @@
 package land.face.streak;
 
-import com.tealcube.minecraft.bukkit.TextUtils;
+import com.tealcube.minecraft.bukkit.facecore.utilities.TextUtils;
+import com.tealcube.minecraft.bukkit.shade.acf.PaperCommandManager;
 import io.pixeloutlaw.minecraft.spigot.config.MasterConfiguration;
 import io.pixeloutlaw.minecraft.spigot.config.SmartYamlConfiguration;
 import io.pixeloutlaw.minecraft.spigot.config.VersionedConfiguration;
@@ -14,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import land.face.streak.commands.BaseCommand;
+import land.face.streak.commands.DailyCommand;
 import land.face.streak.data.PlayerData;
 import land.face.streak.data.PlayerData.SlotId;
 import land.face.streak.data.Reward;
@@ -28,7 +29,6 @@ import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
-import se.ranzdo.bukkit.methodcommand.CommandHandler;
 
 public class StreakPlugin extends JavaPlugin {
 
@@ -44,8 +44,6 @@ public class StreakPlugin extends JavaPlugin {
 
   private SmartYamlConfiguration playerData;
   private SmartYamlConfiguration rewardsYml;
-
-  private CommandHandler commandHandler;
 
   public static StreakPlugin getInstance() {
     return instance;
@@ -68,7 +66,7 @@ public class StreakPlugin extends JavaPlugin {
     settings = MasterConfiguration.loadFromFiles(configYAML);
 
     streakManager = new StreakManager(this);
-    rewardManager = new RewardManager(this);
+    rewardManager = new RewardManager();
 
     Bukkit.getPluginManager().registerEvents(new LoginListener(this), this);
 
@@ -78,8 +76,8 @@ public class StreakPlugin extends JavaPlugin {
     //    1120 * 20L // Run every 2 minutes
     //);
 
-    commandHandler = new CommandHandler(this);
-    commandHandler.registerCommands(new BaseCommand(this));
+    PaperCommandManager commandManager = new PaperCommandManager(this);
+    commandManager.registerCommand(new DailyCommand(this));
 
     loadData();
     loadRewards();
